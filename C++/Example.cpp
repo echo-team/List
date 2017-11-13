@@ -1,21 +1,23 @@
+#include <stdio.h>
 #include "Headers/list.h"
 
 using namespace std;
 
 int main()
 {
-    List list("d");
+    List<double>* list = new List<double>();
 
-    list.push(0);
-    list.push(10);
-    list.push(-10);
-    list.push(2);
+    list->push(0);
+    list->push(10);
+    list->push(-10);
+    list->push(2);
+    printf("%d\n", sizeof(list->first->element));
 
-    ListUnit* luCurrent = list.first;
+    ListUnit<double>* luCurrent = list->first;
 
     while (luCurrent != NULL)
     {
-        printf("%d ", (int)luCurrent->element);
+        printf("%lf ", luCurrent->element);
         luCurrent = luCurrent->getNext();
     }
 

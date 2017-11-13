@@ -1,26 +1,35 @@
 #ifdef LISTUNIT_H
 
-    ListUnit::ListUnit(double dElement)
+    template <typename tType>
+    class ListUnit
     {
-        this->element = dElement;
-        this->next = NULL;
-        this->previous = NULL;
-    }
-    ListUnit* ListUnit::getNext()
-    {
-        return this->next;
-    }
-    ListUnit* ListUnit::getPrevious()
-    {
-        return this->previous;
-    }
-    void ListUnit::setNext(ListUnit* luNext)
-    {
-        this->next = luNext;
-    }
-    void ListUnit::setPrevious(ListUnit* luPrevious)
-    {
-        this->previous = luPrevious;
-    }
+        private:
+            ListUnit<tType>* next;
+            ListUnit<tType>* previous;
+        public:
+            tType element;
+            ListUnit(tType tElement)
+            {
+                this->element = tElement;
+                this->next = NULL;
+                this->previous = NULL;
+            }
+            ListUnit<tType>* getNext()
+            {
+                return this->next;
+            }
+            ListUnit<tType>* getPrevious()
+            {
+                return this->previous;
+            }
+            void setNext(ListUnit<tType>* luNext)
+            {
+                this->next = luNext;
+            }
+            void setPrevious(ListUnit<tType>* luPrevious)
+            {
+                this->previous = luPrevious;
+            }
+    };
 
 #endif
