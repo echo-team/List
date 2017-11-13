@@ -13,6 +13,7 @@ int main()
     list->push(2);
 
     ListUnit<int>* luCurrent = list->first;
+    printf("Length is %d.\n", list->length);
     ListUnit<int>* luRemove = NULL;
     while (luCurrent != NULL)
     {
@@ -22,9 +23,8 @@ int main()
 
     printf("\n");
 
-    luRemove = list->onPosition(1);
-    printf("Removing %d...\n", luRemove->element);
-    list->remove(luRemove);
+    list->insert(-2, 3);
+    printf("Length is %d.\n", list->length);
     luCurrent = list->first;
     while (luCurrent != NULL)
     {
