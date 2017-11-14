@@ -120,6 +120,18 @@
                     luNext->setPrevious(luPrevious);
                 }
             }
+            void fromString(char* sConverting)
+            {
+                if (this->last != NULL)
+                {
+                    return;
+                }
+
+                for (int iCounter = 0; iCounter < strlen(sConverting); iCounter++)
+                {
+                    this->push(sConverting[iCounter]);
+                }
+            }
     };
 
 

@@ -5,30 +5,27 @@ using namespace std;
 
 int main()
 {
-    List<int>* list = new List<int>();
+    List<char>* list = new List<char>();
 
-    list->push(0);
-    list->push(10);
-    list->push(-10);
-    list->push(2);
+    list->fromString("This is string.");
 
-    ListUnit<int>* luCurrent = list->first;
+    ListUnit<char>* luCurrent = list->first;
     printf("Length is %d.\n", list->length);
-    ListUnit<int>* luRemove = NULL;
     while (luCurrent != NULL)
     {
-        printf("%d ", luCurrent->element);
+        printf("%c", luCurrent->element);
         luCurrent = luCurrent->getNext();
     }
 
     printf("\n");
 
-    list->insert(-2, 3);
+    list->fromString("This is second string.");
+
     printf("Length is %d.\n", list->length);
     luCurrent = list->first;
     while (luCurrent != NULL)
     {
-        printf("%d ", luCurrent->element);
+        printf("%c", luCurrent->element);
         luCurrent = luCurrent->getNext();
     }
 
