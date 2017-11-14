@@ -13,6 +13,23 @@
                 this->last = NULL;
                 this->length = 0;
             }
+            void push(ListUnit<tType>* luPushing)
+            {
+                ListUnit<tType>* luEnd = this->last;
+
+                if (luEnd == NULL)
+                {
+                    this->first = luPushing;
+                }
+                else
+                {
+                    luEnd->setNext(luPushing);
+                    luPushing->setPrevious(luEnd);
+                }
+
+                this->last = luPushing;
+                this->length++;
+            }
             void push(tType tElement)
             {
                 ListUnit<tType>* luEnd = this->last;
