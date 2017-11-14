@@ -34,6 +34,11 @@
             }
             ListUnit<tType>* onPosition(int iIndex)
             {
+                if (iIndex < 0 || iIndex >= this->length)
+                {
+                    return NULL;
+                }
+
                 ListUnit<tType>* luFounding = this->first;
 
                 for (int iCounter = 0; iCounter < iIndex && luFounding != NULL; iCounter++)
