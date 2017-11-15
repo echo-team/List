@@ -65,6 +65,104 @@
 
                 return luFounding;
             }
+            void insert(ListUnit<tType>* luNext, ListUnit<tType>* luInserting)
+            {
+                if (luNext == NULL)
+                {
+                    this->push(luInserting);
+                }
+                else
+                {
+                    ListUnit<tType>* luPrevious = luNext->getPrevious();
+
+                    if (luPrevious == NULL)
+                    {
+                        this->first = luInserting;
+                    }
+                    else
+                    {
+                        luPrevious->setNext(luInserting);
+                    }
+
+                    luNext->setPrevious(luInserting);
+                    luInserting->setNext(luNext);
+                    luInserting->setPrevious(luPrevious);
+                    this->length++;
+                }
+            }
+            void insert(ListUnit<tType>* luNext, tType tElement)
+            {
+                ListUnit<tType>* luInserting = (ListUnit<tType>*)malloc(sizeof(ListUnit<tType>));
+                luInserting = new ListUnit<tType>(tElement);
+
+                if (luNext == NULL)
+                {
+                    this->push(luInserting);
+                }
+                else
+                {
+                    ListUnit<tType>* luPrevious = luNext->getPrevious();
+
+                    if (luPrevious == NULL)
+                    {
+                        this->first = luInserting;
+                    }
+                    else
+                    {
+                        luPrevious->setNext(luInserting);
+                    }
+
+                    luNext->setPrevious(luInserting);
+                    luInserting->setNext(luNext);
+                    luInserting->setPrevious(luPrevious);
+                    this->length++;
+                }
+            }
+            void insert(int iIndex, ListUnit<tType>* luInserting)
+            {
+                ListUnit<tType>* luOnPosition = this->onPosition(iIndex);
+
+                if (luOnPosition == NULL)
+                {
+                    if (iIndex == 0)
+                    {
+                        ListUnit<tType>* luFirst = this->first;
+
+                        this->first = luInserting;
+                        luOnPosition->setPrevious(luInserting);
+                        luInserting->setNext(luOnPosition);
+
+                        this->length++;
+                    }
+                    else if (iIndex >= this->length)
+                    {
+                        this->push(luInserting->element); //Fixme!!
+                        delete luInserting;
+                        return;
+                    }
+                    else
+                    {
+                        delete luInserting;
+                        return;
+                    }
+                }
+                else
+                {
+                    ListUnit<tType>* luPrevious = luOnPosition->getPrevious();
+
+                    luOnPosition->setPrevious(luInserting);
+                    luInserting->setNext(luOnPosition);
+                    luInserting->setPrevious(luPrevious);
+                    luPrevious != NULL ? luPrevious->setNext(luInserting) : (void)NULL;
+
+                    if (iIndex == 0)
+                    {
+                        this->first = luInserting;
+                    }
+
+                    this->length++;
+                }
+            }
             void insert(int iIndex, tType tElement)
             {
                 ListUnit<tType>* luOnPosition = this->onPosition(iIndex);
@@ -83,7 +181,7 @@
 
                         this->length++;
                     }
-                    else if (iIndex == this->length)
+                    else if (iIndex >= this->length)
                     {
                         this->push(luInserting->element); //Fixme!!
                         delete luInserting;

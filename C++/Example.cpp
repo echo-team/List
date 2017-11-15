@@ -7,22 +7,29 @@ int main()
 {
     List<int>* list = new List<int>();
 
-    for (int iCounter = 0; iCounter < 5; iCounter++)
+    list->push(0);
+    list->push(1);
+    list->push(2);
+    list->push(3);
+
+    ListUnit<int>* luNew = new ListUnit<int>(-1);
+    list->insert(4, luNew);
+
+    ListUnit<int>* luCurrent = list->first;
+    printf("Length is %d.\n", list->length);
+    while (luCurrent != NULL)
+    {
+        printf("%d ", luCurrent->element);
+        luCurrent = luCurrent->getNext();
+    }
+
+    printf("\n");
+
+    /*for (int iCounter = 0; iCounter < 5; iCounter++)
     {
         ListUnit<int>* luNew = new ListUnit<int>(iCounter);
         list->push(luNew);
-
-        printf("Length is %d.\n", list->length);
-
-        ListUnit<int>* luCurrent = list->first;
-        while (luCurrent != NULL)
-        {
-            printf("%d ", luCurrent->element);
-            luCurrent = luCurrent->getNext();
-        }
-
-        printf("\n");
-    }
+    }*/
 
     return 0;
 }
