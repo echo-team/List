@@ -212,6 +212,11 @@
             }
             void remove(ListUnit<tType>* luRemoving)
             {
+                if (luRemoving == NULL)
+                {
+                    return;
+                }
+
                 ListUnit<tType>* luPrevious = luRemoving->getPrevious();
                 ListUnit<tType>* luNext = luRemoving->getNext();
                 this->length--;
@@ -234,6 +239,11 @@
                 {
                     luNext->setPrevious(luPrevious);
                 }
+            }
+            void remove(int iIndex)
+            {
+                ListUnit<tType>* luRemoving = this->onPosition(iIndex);
+                this->remove(luRemoving);
             }
             void fromString(char* sConverting)
             {
