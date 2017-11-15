@@ -207,6 +207,28 @@
                     this->push(sConverting[iCounter]);
                 }
             }
+            void from(tType* atConverting, int iLength)
+            {
+                if (this->first != NULL)
+                {
+                    return;
+                }
+
+                for (int iCounter = 0; iCounter < iLength; iCounter++)
+                {
+                    this->push(atConverting[iCounter]);
+                }
+            }
+            void from(List<tType>* lConverting)
+            {
+                if (this->first != NULL)
+                {
+                    return;
+                }
+
+                lConverting = lConverting->copy();
+                this->insert((ListUnit<tType>*)NULL, lConverting);
+            }
     };
 
 
