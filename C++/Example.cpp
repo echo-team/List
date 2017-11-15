@@ -12,7 +12,7 @@ int main()
     list->push(2);
     list->push(3);
 
-    list->remove(3);
+    list->insert(0, -1);
 
     ListUnit<int>* luCurrent = list->first;
     printf("Length is %d.\n", list->length);
@@ -23,7 +23,6 @@ int main()
     }
 
     printf("\n");
-    printf("Length is %d.\n", list->length);
 
     /*for (int iCounter = 0; iCounter < 5; iCounter++)
     {
