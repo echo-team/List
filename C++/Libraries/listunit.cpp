@@ -30,6 +30,17 @@
             {
                 this->previous = luPrevious;
             }
+            ListUnit<tType>* copy()
+            {
+                ListUnit<tType>* luCopy = (ListUnit<tType>*)malloc(sizeof(ListUnit<tType>));
+                luCopy = new ListUnit<tType>(this->element);
+
+                return luCopy;
+            }
+            void copy(ListUnit<tType>* luCopy)
+            {
+                luCopy->element = this->element;
+            }
     };
 
 #endif

@@ -5,17 +5,30 @@ using namespace std;
 
 int main()
 {
-    List<int>* list = new List<int>();
+    List<int>* lList = new List<int>();
+    List<int>* lCopy = new List<int>();
 
-    list->push(0);
-    list->push(1);
-    list->push(2);
-    list->push(3);
+    lList->push(0);
+    lList->push(1);
+    lList->push(2);
+    lList->push(3);
 
-    list->insert(0, -1);
+    lList->copy(lCopy);
 
-    ListUnit<int>* luCurrent = list->first;
-    printf("Length is %d.\n", list->length);
+    ListUnit<int>* luCurrent = lCopy->first;
+    printf("Length is %d.\n", lCopy->length);
+    while (luCurrent != NULL)
+    {
+        printf("%d ", luCurrent->element);
+        luCurrent = luCurrent->getNext();
+    }
+
+    printf("\n");
+
+    lList->push(4);
+
+    luCurrent = lList->first;
+    printf("Length is %d.\n", lCopy->length);
     while (luCurrent != NULL)
     {
         printf("%d ", luCurrent->element);

@@ -110,6 +110,28 @@
 
                 this->insert(luOnPosition, luInserting);
             }
+            void copy(List<tType>* lCopy)
+            {
+                if (lCopy->first != NULL)
+                {
+                    return;
+                }
+
+                ListUnit<int>* luCurrent = this->first;
+                while (luCurrent != NULL)
+                {
+                    lCopy->push(luCurrent->copy());
+                    luCurrent = luCurrent->getNext();
+                }
+            }
+            List<tType>* copy()
+            {
+                List<tType>* lCopy = (List<tType>*)malloc(sizeof(List<tType>));
+                lCopy = new List();
+                this->copy(lCopy);
+
+                return lCopy;
+            }
             void remove(ListUnit<tType>* luRemoving)
             {
                 if (luRemoving == NULL)
