@@ -181,7 +181,7 @@
                 ListUnit<tType>* luRemoving = this->onPosition(iIndex);
                 this->remove(luRemoving);
             }
-            void fromString(char* sConverting)
+            void from(char* sConverting)
             {
                 if (this->last != NULL)
                 {
