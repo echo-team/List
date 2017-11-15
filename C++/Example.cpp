@@ -6,17 +6,17 @@ using namespace std;
 int main()
 {
     List<int>* lList = new List<int>();
-    List<int>* lCopy = new List<int>();
+    List<int>* lInserting = new List<int>();
 
     lList->push(0);
     lList->push(1);
-    lList->push(2);
-    lList->push(3);
+    lInserting->push(2);
+    lInserting->push(3);
 
-    lList->copy(lCopy);
+    lList->insert(0, lInserting);
 
-    ListUnit<int>* luCurrent = lCopy->first;
-    printf("Length is %d.\n", lCopy->length);
+    ListUnit<int>* luCurrent = lList->first;
+    printf("Length is %d.\n", lList->length);
     while (luCurrent != NULL)
     {
         printf("%d ", luCurrent->element);
@@ -28,7 +28,7 @@ int main()
     lList->push(4);
 
     luCurrent = lList->first;
-    printf("Length is %d.\n", lCopy->length);
+    printf("Length is %d.\n", lList->length);
     while (luCurrent != NULL)
     {
         printf("%d ", luCurrent->element);

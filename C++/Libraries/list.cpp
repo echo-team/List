@@ -49,6 +49,28 @@
                 this->last = luNewEnd;
                 this->length++;
             }
+            void copy(List<tType>* lCopy)
+            {
+                if (lCopy->first != NULL)
+                {
+                    return;
+                }
+
+                ListUnit<int>* luCurrent = this->first;
+                while (luCurrent != NULL)
+                {
+                    lCopy->push(luCurrent->copy());
+                    luCurrent = luCurrent->getNext();
+                }
+            }
+            List<tType>* copy()
+            {
+                List<tType>* lCopy = (List<tType>*)malloc(sizeof(List<tType>));
+                lCopy = new List();
+                this->copy(lCopy);
+
+                return lCopy;
+            }
             ListUnit<tType>* onPosition(int iIndex)
             {
                 if (iIndex < 0 || iIndex >= this->length)
@@ -110,27 +132,19 @@
 
                 this->insert(luOnPosition, luInserting);
             }
-            void copy(List<tType>* lCopy)
+            void insert(ListUnit<tType>* luNext, List<tType>* lInserting)
             {
-                if (lCopy->first != NULL)
-                {
-                    return;
-                }
-
-                ListUnit<int>* luCurrent = this->first;
+                ListUnit<tType>* luCurrent = lInserting->first;
                 while (luCurrent != NULL)
                 {
-                    lCopy->push(luCurrent->copy());
+                    this->insert(luNext, luCurrent->copy());
                     luCurrent = luCurrent->getNext();
                 }
             }
-            List<tType>* copy()
+            void insert(int iIndex, List<tType>* lInserting)
             {
-                List<tType>* lCopy = (List<tType>*)malloc(sizeof(List<tType>));
-                lCopy = new List();
-                this->copy(lCopy);
-
-                return lCopy;
+                ListUnit<tType>* luOnPosition = this->onPosition(iIndex);
+                this->insert(luOnPosition, lInserting);
             }
             void remove(ListUnit<tType>* luRemoving)
             {
