@@ -1,5 +1,7 @@
 #ifdef LIST_H
 
+    using namespace std;
+
     template <typename tType>
     class List
     {
@@ -183,12 +185,24 @@
             }
             void from(char* sConverting)
             {
-                if (this->last != NULL)
+                if (this->first != NULL)
                 {
                     return;
                 }
 
                 for (int iCounter = 0; iCounter < strlen(sConverting); iCounter++)
+                {
+                    this->push(sConverting[iCounter]);
+                }
+            }
+            void from(string sConverting)
+            {
+                if (this->first != NULL)
+                {
+                    return;
+                }
+
+                for (int iCounter = 0; iCounter < sConverting.length(); iCounter++)
                 {
                     this->push(sConverting[iCounter]);
                 }

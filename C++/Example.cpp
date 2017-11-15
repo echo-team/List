@@ -5,33 +5,24 @@ using namespace std;
 
 int main()
 {
-    List<int>* lList = new List<int>();
-    List<int>* lInserting = new List<int>();
+    List<char>* lList = new List<char>();
+    string sFrom = "It is List from string.";
+
+    lList->from(sFrom);
+    /*List<int>* lInserting = new List<int>();
 
     lList->push(0);
     lList->push(1);
     lInserting->push(2);
     lInserting->push(3);
 
-    lList->insert(0, lInserting);
+    lList->insert(0, lInserting);*/
 
-    ListUnit<int>* luCurrent = lList->first;
+    ListUnit<char>* luCurrent = lList->first;
     printf("Length is %d.\n", lList->length);
     while (luCurrent != NULL)
     {
-        printf("%d ", luCurrent->element);
-        luCurrent = luCurrent->getNext();
-    }
-
-    printf("\n");
-
-    lList->push(4);
-
-    luCurrent = lList->first;
-    printf("Length is %d.\n", lList->length);
-    while (luCurrent != NULL)
-    {
-        printf("%d ", luCurrent->element);
+        printf("%c", luCurrent->element);
         luCurrent = luCurrent->getNext();
     }
 
