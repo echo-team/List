@@ -5,7 +5,6 @@ using namespace std;
 
 int main()
 {
-    List<int>* lTo = new List<int>();
     List<int>* lList = new List<int>();
 
     lList->push(0);
@@ -13,10 +12,10 @@ int main()
     lList->push(2);
     lList->push(3);
 
-    lTo->from(lList);
+    lList->remove(lList->first, lList->last);
 
-    ListUnit<int>* luCurrent = lTo->first;
-    printf("Length is %d.\n", lTo->length);
+    ListUnit<int>* luCurrent = lList->first;
+    printf("Length is %d.\n", lList->length);
     while (luCurrent != NULL)
     {
         printf("%d ", luCurrent->element);
