@@ -12,7 +12,7 @@ int main()
     lList->push(2);
     lList->push(3);
 
-    lList->remove(lList->first, lList->last);
+    lList->remove(-1, 2);
 
     ListUnit<int>* luCurrent = lList->first;
     printf("Length is %d.\n", lList->length);

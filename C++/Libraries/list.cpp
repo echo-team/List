@@ -203,6 +203,43 @@
                     this->remove(luLast);
                 }
             }
+            void remove(int iFirst, int iLast)
+            {
+                ListUnit<tType>* luFirst = this->onPosition(iFirst);
+
+                if (luFirst == NULL)
+                {
+                    return;
+                }
+                else
+                {
+                    if (iFirst == iLast)
+                    {
+                        this->remove(luFirst);
+                        return;
+                    }
+
+                    ListUnit<tType>* luCurrent = luFirst;
+                    for (int iCounter = iFirst; iCounter < iLast && luCurrent != NULL; iCounter++)
+                    {
+                        luCurrent = luCurrent->getNext();
+                    }
+
+                    if (luCurrent != NULL)
+                    {
+                        ListUnit<tType>* luLast = luCurrent;
+
+                        luCurrent = luFirst->getNext();
+                        while (luCurrent != luLast)
+                        {
+                            this->remove(luCurrent);
+                            luCurrent = luFirst->getNext();
+                        }
+                        this->remove(luFirst);
+                        this->remove(luLast);
+                    }
+                }
+            }
             void remove(int iIndex)
             {
                 ListUnit<tType>* luRemoving = this->onPosition(iIndex);
