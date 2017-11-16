@@ -67,6 +67,45 @@
 
                 return lCopy;
             }
+            ListUnit<tType>* find(char* sFinding)
+            {
+                ListUnit<tType>* luCurrent = this->first;
+                ListUnit<tType>* luFounded;
+                int iCounter = 0,
+                    iLength = strlen(sFinding);
+
+                while (luCurrent != NULL && iCounter < iLength)
+                {
+                    if (luCurrent->element == sFinding[iCounter])
+                    {
+                        if (iCounter == 0)
+                        {
+                            luFounded = luCurrent;
+                        }
+                        iCounter++;
+                    }
+                    else
+                    {
+                        iCounter = 0;
+                        luFounded = NULL;
+                    }
+
+                    luCurrent = luCurrent->getNext();
+                }
+
+                if (iCounter == iLength)
+                {
+                    return luFounded;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            List<tType>* slice(ListUnit<tType>* luFirst, ListUnit<tType>* luLast)
+            {
+                //Fixme!!!
+            }
             ListUnit<tType>* onPosition(int iIndex)
             {
                 if (iIndex < 0 || iIndex >= this->length)

@@ -5,20 +5,16 @@ using namespace std;
 
 int main()
 {
-    List<int>* lList = new List<int>();
+    List<char>* lList = new List<char>("Hello, world!");
 
-    lList->push(0);
-    lList->push(1);
-    lList->push(2);
-    lList->push(3);
+    ListUnit<char>* luFounded = lList->find("wo");
+    printf("\nFound on %c.\n", luFounded->element);
 
-    lList->remove(-1, 2);
-
-    ListUnit<int>* luCurrent = lList->first;
+    ListUnit<char>* luCurrent = lList->first;
     printf("Length is %d.\n", lList->length);
     while (luCurrent != NULL)
     {
-        printf("%d ", luCurrent->element);
+        printf("%c", luCurrent->element);
         luCurrent = luCurrent->getNext();
     }
 
