@@ -9,12 +9,6 @@
             ListUnit<tType>* first;
             ListUnit<tType>* last;
             long int length;
-            List()
-            {
-                this->first = NULL;
-                this->last = NULL;
-                this->length = 0;
-            }
             void push(ListUnit<tType>* luPushing)
             {
                 ListUnit<tType>* luEnd = this->last;
@@ -229,6 +223,45 @@
                 lConverting = lConverting->copy();
                 this->insert((ListUnit<tType>*)NULL, lConverting);
             }
+            List()
+            {
+                this->first = NULL;
+                this->last = NULL;
+                this->length = 0;
+            }
+            List(char* sConverting)
+            {
+                this->first = NULL;
+                this->last = NULL;
+                this->length = 0;
+
+                this->from(sConverting);
+            }
+            List(string sConverting)
+            {
+                this->first = NULL;
+                this->last = NULL;
+                this->length = 0;
+
+                this->from(sConverting);
+            }
+            List(tType* atConverting, int iLength)
+            {
+                this->first = NULL;
+                this->last = NULL;
+                this->length = 0;
+
+                this->from(atConverting, iLength);
+            }
+            List(List<tType>* lConverting)
+            {
+                this->first = NULL;
+                this->last = NULL;
+                this->length = 0;
+
+                this->from(lConverting);
+            }
+
     };
 
 
