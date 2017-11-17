@@ -5,13 +5,7 @@ using namespace std;
 
 int main()
 {
-    List<int>* lList = new List<int>();
-
-    lList->push(0);
-    lList->push(1);
-    lList->push(2);
-    lList->push(3);
-    lList->push(4);
+    List<int>* lList = new List<int>({0, 1, 2, 2, 4});
 
     List<int>* lCopy = lList->copy(0, 3);
 

@@ -564,6 +564,18 @@
                 lConverting = lConverting->copy();
                 this->insert((ListUnit<tType>*)NULL, lConverting);
             }
+            void from(std::initializer_list<tType> ilConverting)
+            {
+                if (this->first != NULL)
+                {
+                    return;
+                }
+
+                for(auto& tItem : ilConverting)
+                {
+                    this->push(tItem);
+                }
+            }
             List()
             {
                 this->first = NULL;
@@ -601,6 +613,14 @@
                 this->length = 0;
 
                 this->from(lConverting);
+            }
+            List(std::initializer_list<tType> ilConverting)
+            {
+                this->first = NULL;
+                this->last = NULL;
+                this->length = 0;
+
+                this->from(ilConverting);
             }
     };
 
