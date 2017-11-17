@@ -45,6 +45,43 @@
                 this->last = luNewEnd;
                 this->length++;
             }
+            void copy(List<tType>* lCopy, ListUnit<tType>* luFirst, ListUnit<tType>* luLast)
+            {
+                ListUnit<tType>* luCurrent = this->first;
+                while (luCurrent != NULL && luCurrent != luLast)
+                {
+                    luCurrent = luCurrent->getNext();
+                }
+
+                if (lCopy->first != NULL || luCurrent == NULL)
+                {
+                    return;
+                }
+
+                luCurrent = luFirst;
+                while (luCurrent != NULL && luCurrent != luLast)
+                {
+                    lCopy->push(luCurrent->copy());
+                    luCurrent = luCurrent->getNext();
+                }
+                lCopy->push(luLast->copy());
+            }
+            void copy(List<tType>* lCopy, int iFirst, int iLast)
+            {
+                if (lCopy->first != NULL || iFirst > iLast || iFirst < 0 || iLast >= this->length)
+                {
+                    return;
+                }
+
+                ListUnit<tType>* luCurrent = this->onPosition(iFirst);
+                int iCounter = iFirst;
+                while (iCounter <= iLast)
+                {
+                    lCopy->push(luCurrent->copy());
+                    luCurrent = luCurrent->getNext();
+                    iCounter++;
+                }
+            }
             void copy(List<tType>* lCopy)
             {
                 if (lCopy->first != NULL)
@@ -52,12 +89,24 @@
                     return;
                 }
 
-                ListUnit<int>* luCurrent = this->first;
+                ListUnit<tType>* luCurrent = this->first;
                 while (luCurrent != NULL)
                 {
                     lCopy->push(luCurrent->copy());
                     luCurrent = luCurrent->getNext();
                 }
+            }
+            List<tType>* copy(ListUnit<tType>* luFirst, ListUnit<tType>* luLast)
+            {
+                List<tType>* lCopy = (List<tType>*)malloc(sizeof(List<tType>));
+                this->copy(lCopy, luFirst, luLast);
+                return lCopy;
+            }
+            List<tType>* copy(int iFirst, int iLast)
+            {
+                List<tType>* lCopy = (List<tType>*)malloc(sizeof(List<tType>));
+                this->copy(lCopy, iFirst, iLast);
+                return lCopy;
             }
             List<tType>* copy()
             {

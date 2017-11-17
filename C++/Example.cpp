@@ -13,16 +13,20 @@ int main()
     lList->push(3);
     lList->push(4);
 
-    List<int>* lFind = new List<int>();
-
-    lFind->push(2);
-    lFind->push(3);
-
-    ListUnit<int>* luFound = lList->find(lList->first, lFind);
-    printf("Found at %d.\n", luFound->element);
+    List<int>* lCopy = lList->copy(0, 3);
 
     ListUnit<int>* luCurrent = lList->first;
     printf("Length is %d.\n", lList->length);
+    while (luCurrent != NULL)
+    {
+        printf("%d ", luCurrent->element);
+        luCurrent = luCurrent->getNext();
+    }
+
+    printf("\n");
+
+    luCurrent = lCopy->first;
+    printf("Length is %d.\n", lCopy->length);
     while (luCurrent != NULL)
     {
         printf("%d ", luCurrent->element);
