@@ -67,9 +67,9 @@
 
                 return lCopy;
             }
-            ListUnit<tType>* find(char* sFinding)
+            ListUnit<tType>* find(ListUnit<tType>* luFrom, char* sFinding)
             {
-                ListUnit<tType>* luCurrent = this->first;
+                ListUnit<tType>* luCurrent = luFrom;
                 ListUnit<tType>* luFounded;
                 int iCounter = 0,
                     iLength = strlen(sFinding);
@@ -102,9 +102,129 @@
                     return NULL;
                 }
             }
-            List<tType>* slice(ListUnit<tType>* luFirst, ListUnit<tType>* luLast)
+            ListUnit<tType>* find(ListUnit<tType>* luFrom, string sFinding)
             {
-                //Fixme!!!
+                ListUnit<tType>* luCurrent = luFrom;
+                ListUnit<tType>* luFounded;
+                int iCounter = 0,
+                    iLength = sFinding.length();
+
+                while (luCurrent != NULL && iCounter < iLength)
+                {
+                    if (luCurrent->element == sFinding[iCounter])
+                    {
+                        if (iCounter == 0)
+                        {
+                            luFounded = luCurrent;
+                        }
+                        iCounter++;
+                    }
+                    else
+                    {
+                        iCounter = 0;
+                        luFounded = NULL;
+                    }
+
+                    luCurrent = luCurrent->getNext();
+                }
+
+                if (iCounter == iLength)
+                {
+                    return luFounded;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            ListUnit<tType>* find(ListUnit<tType>* luFrom, tType* atFinding, int iLength)
+            {
+                ListUnit<tType>* luCurrent = luFrom;
+                ListUnit<tType>* luFounded;
+                int iCounter = 0;
+
+                while (luCurrent != NULL && iCounter < iLength)
+                {
+                    if (luCurrent->element == atFinding[iCounter])
+                    {
+                        if (iCounter == 0)
+                        {
+                            luFounded = luCurrent;
+                        }
+                        iCounter++;
+                    }
+                    else
+                    {
+                        iCounter = 0;
+                        luFounded = NULL;
+                    }
+
+                    luCurrent = luCurrent->getNext();
+                }
+
+                if (iCounter == iLength)
+                {
+                    return luFounded;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            ListUnit<tType>* find(ListUnit<tType>* luFrom, List<tType>* lFinding)
+            {
+                if (lFinding == NULL)
+                {
+                    return NULL;
+                }
+
+                ListUnit<tType>* luCurrent = luFrom;
+                ListUnit<tType>* luFinding = lFinding->first;
+                ListUnit<tType>* luFounded = NULL;
+
+                while (luCurrent != NULL && luFinding != NULL)
+                {
+                    if (luCurrent->element == luFinding->element)
+                    {
+                        if (luFounded == NULL)
+                        {
+                            luFounded = luCurrent;
+                        }
+                        luFinding = luFinding->getNext();
+                    }
+                    else
+                    {
+                        luFinding = lFinding->first;
+                        luFounded = NULL;
+                    }
+
+                    luCurrent = luCurrent->getNext();
+                }
+
+                if (luFinding == NULL)
+                {
+                    return luFounded;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            ListUnit<tType>* find(char* sFinding)
+            {
+                return this->find(this->first, sFinding);
+            }
+            ListUnit<tType>* find(string sFinding)
+            {
+                return this->find(this->first, sFinding);
+            }
+            ListUnit<tType>* find(tType* atFinding, int iLength)
+            {
+                return this->find(this->length, atFinding, iLength);
+            }
+            ListUnit<tType>* find(List<tType>* lFinding)
+            {
+                return this->find(this->first, lFinding);
             }
             ListUnit<tType>* onPosition(int iIndex)
             {
@@ -244,14 +364,14 @@
             }
             void remove(int iFirst, int iLast)
             {
-                ListUnit<tType>* luFirst = this->onPosition(iFirst);
-
-                if (luFirst == NULL)
+                if (iFirst > iLast || iLast >= this->length || iFirst < 0)
                 {
                     return;
                 }
                 else
                 {
+                    ListUnit<tType>* luFirst = this->onPosition(iFirst);
+
                     if (iFirst == iLast)
                     {
                         this->remove(luFirst);
@@ -283,6 +403,71 @@
             {
                 ListUnit<tType>* luRemoving = this->onPosition(iIndex);
                 this->remove(luRemoving);
+            }
+            List<tType>* cut(ListUnit<tType>* luFirst, ListUnit<tType>* luLast)
+            {
+                if (luLast == NULL)
+                {
+                    return NULL;
+                }
+
+                ListUnit<tType>* luCurrent = luFirst;
+                while (luCurrent != luLast && luCurrent != NULL)
+                {
+                    luCurrent = luCurrent->getNext();
+                }
+
+                if (luCurrent != luLast)
+                {
+                    return NULL;
+                }
+                else
+                {
+                    List<tType>* lCut = new List<tType>();
+                    ListUnit<tType>* luCurrent = luFirst->getNext();
+
+                    lCut->push(luFirst->copy());
+                    while (luCurrent != luLast)
+                    {
+                        lCut->push(luCurrent->copy());
+                        this->remove(luCurrent);
+                        luCurrent = luFirst->getNext();
+                    }
+                    lCut->push(luLast->copy());
+
+                    this->remove(luFirst);
+                    this->remove(luLast);
+
+                    return lCut;
+                }
+            }
+            List<tType>* cut(int iFirst, int iLast)
+            {
+                if (iFirst > iLast || iLast >= this->length || iFirst < 0)
+                {
+                    return NULL;
+                }
+                else
+                {
+                    List<tType>* lCut = new List<tType>();
+                    ListUnit<tType>* luFirst = this->onPosition(iFirst);
+                    ListUnit<tType>* luCurrent = luFirst->getNext();
+                    int iCounter = iFirst + 1;
+
+                    lCut->push(luFirst->copy());
+                    while (iCounter <= iLast)
+                    {
+                        lCut->push(luCurrent->copy());
+                        this->remove(luCurrent);
+                        luCurrent = luFirst->getNext();
+                        iCounter++;
+                    }
+
+                    this->remove(luFirst);
+                    this->remove(luCurrent);
+
+                    return lCut;
+                }
             }
             void from(char* sConverting)
             {

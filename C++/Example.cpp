@@ -5,16 +5,27 @@ using namespace std;
 
 int main()
 {
-    List<char>* lList = new List<char>("Hello, world!");
+    List<int>* lList = new List<int>();
 
-    ListUnit<char>* luFounded = lList->find("wo");
-    printf("\nFound on %c.\n", luFounded->element);
+    lList->push(0);
+    lList->push(1);
+    lList->push(2);
+    lList->push(3);
+    lList->push(4);
 
-    ListUnit<char>* luCurrent = lList->first;
+    List<int>* lFind = new List<int>();
+
+    lFind->push(2);
+    lFind->push(3);
+
+    ListUnit<int>* luFound = lList->find(lList->first, lFind);
+    printf("Found at %d.\n", luFound->element);
+
+    ListUnit<int>* luCurrent = lList->first;
     printf("Length is %d.\n", lList->length);
     while (luCurrent != NULL)
     {
-        printf("%c", luCurrent->element);
+        printf("%d ", luCurrent->element);
         luCurrent = luCurrent->getNext();
     }
 
