@@ -5,9 +5,9 @@ using namespace std;
 
 int main()
 {
-    List<int>* lList = new List<int>({0, 1, 2, 2, 4});
+    List<char>* lList = new List<char>("Hello, world!");
 
-    List<int>* lCopy = lList->copy(0, 3);
+    /*List<int>* lCopy = lList->copy(0, 3);
 
     ListUnit<int>* luCurrent = lList->first;
     printf("Length is %d.\n", lList->length);
@@ -17,13 +17,13 @@ int main()
         luCurrent = luCurrent->getNext();
     }
 
-    printf("\n");
+    printf("\n");*/
 
-    luCurrent = lCopy->first;
-    printf("Length is %d.\n", lCopy->length);
+    ListUnit<char>* luCurrent = lList->first;
+    printf("Length is %d.\n", lList->length);
     while (luCurrent != NULL)
     {
-        printf("%d ", luCurrent->element);
+        printf("%c", luCurrent->element);
         luCurrent = luCurrent->getNext();
     }
 

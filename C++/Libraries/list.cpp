@@ -9,6 +9,11 @@
             ListUnit<tType>* first;
             ListUnit<tType>* last;
             long int length;
+            /**
+             * Inserts element into eng of List
+             *
+             * Can take one ListUnit argument or argument of type of List elements
+             */
             void push(ListUnit<tType>* luPushing)
             {
                 ListUnit<tType>* luEnd = this->last;
@@ -45,6 +50,13 @@
                 this->last = luNewEnd;
                 this->length++;
             }
+            /**
+             * Copies List to another
+             *
+             * First parameter always must be List where to copy
+             * Second two parameters can be ListUnits or ints of what to copy (from and to)
+             * With no second parameters copies all List
+             */
             void copy(List<tType>* lCopy, ListUnit<tType>* luFirst, ListUnit<tType>* luLast)
             {
                 ListUnit<tType>* luCurrent = this->first;
@@ -96,6 +108,14 @@
                     luCurrent = luCurrent->getNext();
                 }
             }
+            /**
+             * Copies List to another
+             *
+             * First two parameters can be ListUnits or ints of what to copy (from and to)
+             * With no parameters copies all List
+             *
+             * Returns copy of List as pointer
+             */
             List<tType>* copy(ListUnit<tType>* luFirst, ListUnit<tType>* luLast)
             {
                 List<tType>* lCopy = (List<tType>*)malloc(sizeof(List<tType>));
@@ -116,6 +136,15 @@
 
                 return lCopy;
             }
+            /**
+             * Finds something in List
+             *
+             * First parameter can be ListUnit pointer to element from what to find, if not ListUnit pointer finds from first
+             * Second or first paramenter is what to find (can be pointer to char-string, string, pointer to array, List)
+             * Fird or second parameter is length of array (uses only with previous pointer to array argument)
+             *
+             * Returns ListUnit pointer where something was founded
+             */
             ListUnit<tType>* find(ListUnit<tType>* luFrom, char* sFinding)
             {
                 ListUnit<tType>* luCurrent = luFrom;
@@ -275,6 +304,13 @@
             {
                 return this->find(this->first, lFinding);
             }
+            /**
+             * Finds element at number in List
+             *
+             * First parameter is int, number in List
+             *
+             * Returns ListUnit pointer on number
+             */
             ListUnit<tType>* onPosition(int iIndex)
             {
                 if (iIndex < 0 || iIndex >= this->length)
@@ -291,6 +327,12 @@
 
                 return luFounding;
             }
+            /**
+             * Inserts something to List on given position
+             *
+             * First parameter can be ListUnit pointer or int index of element from what to insert, if NULL, just pushs element
+             * Second parameter is what to insert (List, ListUnit, element typed of List)
+             */
             void insert(ListUnit<tType>* luNext, ListUnit<tType>* luInserting)
             {
                 if (luNext == NULL)
@@ -350,6 +392,13 @@
                 ListUnit<tType>* luOnPosition = this->onPosition(iIndex);
                 this->insert(luOnPosition, lInserting);
             }
+            /**
+             * Removes ListUnit, part of List or all ListUnits
+             *
+             * To remove one ListUnit pass one argument (ListUnit or it's int index in List)
+             * To remove part of List pass two parameters - start and end elements (ListUnits or their's int indexes)
+             * To remove all elements in List pass nothing
+             */
             void remove(ListUnit<tType>* luRemoving)
             {
                 if (luRemoving == NULL)
@@ -453,6 +502,13 @@
                 ListUnit<tType>* luRemoving = this->onPosition(iIndex);
                 this->remove(luRemoving);
             }
+            /**
+             * Cuts part of List to another List
+             *
+             * Takes two parameters start and end of new List slice (ListUnits or their's int indexes)
+             *
+             * Returns List with cutted elements
+             */
             List<tType>* cut(ListUnit<tType>* luFirst, ListUnit<tType>* luLast)
             {
                 if (luLast == NULL)
@@ -490,6 +546,10 @@
                     return lCut;
                 }
             }
+            void remove()
+            {
+                this->cut(this->first, this->last);
+            }
             List<tType>* cut(int iFirst, int iLast)
             {
                 if (iFirst > iLast || iLast >= this->length || iFirst < 0)
@@ -518,6 +578,13 @@
                     return lCut;
                 }
             }
+            /**
+             * Inserts array's, chars-string's, string's, another List's or initializer's elements to this List
+             * List must be empty
+             *
+             * First parameter is what to convert (array, string, char-string or List)
+             * Second parameter is int length of array (nesessary only if first parameter is of array type)
+             */
             void from(char* sConverting)
             {
                 if (this->first != NULL)
@@ -576,6 +643,11 @@
                     this->push(tItem);
                 }
             }
+            /**
+             * Construct List from arrays, strings, char-strings, Lists and initializer_lists
+             *
+             * Arguments just as like as in from method
+             */
             List()
             {
                 this->first = NULL;
@@ -622,7 +694,85 @@
 
                 this->from(ilConverting);
             }
+            /**
+             * Construct List from strings, char-strings, Lists and initializer_lists
+             *
+             * Arguments can be strings, char-strings, Lists and initializer_lists
+             */
+            void operator=(char* sConverting)
+            {
+                this->remove();
+                this->from(sConverting);
+            }
+            void operator=(string sConverting)
+            {
+                this->remove();
+                this->from(sConverting);
+            }
+            void operator=(List<tType>* lConverting)
+            {
+                this->remove();
+                this->from(lConverting);
+            }
+            void operator=(std::initializer_list<tType> ilConverting)
+            {
+                this->remove();
+                this->from(ilConverting);
+            }
+            /**
+             * Adds element to List
+             *
+             * Argument can be a string, char-string, List, initializer_list, ListUnit and just bare elements typed as like as
+             * the main List
+             */
+            void operator+=(List<tType>* lConcatination)
+            {
+                ListUnit<tType>* luCurrent = lConcatination->first;
+                while (luCurrent != NULL)
+                {
+                    this->push(luCurrent->copy());
+                    luCurrent = luCurrent->getNext();
+                }
+            }
+            void operator+=(ListUnit<tType>* luConcatination)
+            {
+                this->push(luConcatination->copy());
+            }
+            void operator+=(char* sConcatination)
+            {
+                for (int iCounter = 0; sConcatination[iCounter] != '\0'; iCounter++)
+                {
+                    this->push(sConcatination[iCounter]);
+                }
+            }
+            void operator+=(string sConcatination)
+            {
+                int iLength = sConcatination.length();
+                for (int iCounter = 0; iCounter < iLength; iCounter++)
+                {
+                    this->push(sConcatination[iCounter]);
+                }
+            }
+            void operator+=(tType tConcatination)
+            {
+                this->push(tConcatination);
+            }
+            void operator+=(std::initializer_list<tType> ilConverting)
+            {
+                for(auto& tItem : ilConverting)
+                {
+                    this->push(tItem);
+                }
+            }
+            /**
+             * Removes element from List
+             *
+             * Argument is ListUnit
+             */
+            void operator-=(ListUnit<tType>* luConcatination)
+            {
+                this->remove(luConcatination);
+            }
     };
-
 
 #endif
